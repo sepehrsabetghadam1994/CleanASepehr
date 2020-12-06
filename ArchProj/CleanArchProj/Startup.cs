@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CleanArch.Infra.Data.Context;
 using CleanArchProj.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,13 @@ namespace CleanArchProj
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("UnivercityIdentityDBConnection")));
+            services.AddDbContext<UnivercityDBContext>(options =>
+                
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("UnivercityDbConnection")
+                    )
+                );
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
