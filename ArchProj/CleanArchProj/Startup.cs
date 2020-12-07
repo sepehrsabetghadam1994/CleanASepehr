@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CleanArch.Infra.Data.Context;
+using CleanArch.Infra.IOC;
 using CleanArchProj.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,7 @@ namespace CleanArchProj
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            RegisterService(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +82,10 @@ namespace CleanArchProj
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+        public static void RegisterService(IServiceCollection services)
+        {
+            DependencyContainer.RegisterService(services);
         }
     }
 }
